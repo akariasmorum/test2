@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
@@ -23,3 +24,9 @@ class User(UserMixin, db.Model):
 
 	def check_password(self, password):
 		return check_password_hash(self.password_hash, password)
+
+
+
+@app.route("/index")
+def hello():
+	return "Hello World!"		

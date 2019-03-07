@@ -38,8 +38,7 @@ class LoginForm(FlaskForm):
 
 
 
-	def check(self) ->bool:
-		user = User.query.filter_by(username = self.username.data).first()
+	def check(self, user) ->bool:		
 
 		if self.check_user_exists(user) == False:
 			return False
