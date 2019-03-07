@@ -18,8 +18,8 @@ class LoginForm(FlaskForm):
 
 	def check_user_exists(self, user) -> bool:
 		'''проверяет, существует есть ли такой User в БД
-		если есть, то возвращает User, 
-		если нет, то None и добавит ошибку в форму'''
+		если есть, то возвращает True, 
+		если нет, то False и добавит ошибку в форму'''
 		
 		
 		if user is None:
@@ -53,7 +53,19 @@ class LoginForm(FlaskForm):
 
 class SignUpForm(LoginForm):
 
+
 	password2 = PasswordField('Password2', validators=[
 		DataRequired(),
 		validators.EqualTo('password', message = 'Пароли не совпадают')], 
 		render_kw ={'class': 'form-control' })
+
+	def check_user_exists(self) -> bool:
+		'''Возвращает True, если такой пользователь уже есть в БД,
+		Иначе возвращает False'''
+
+		user = User.query.filter_by(username = self.username.data).first()
+		if user is not None:
+			self.username.errors.append('Такой пользователь уже существует')
+			return True
+		else:
+			return False	

@@ -3,7 +3,7 @@ from config import Config
 from forms import LoginForm, SignUpForm
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager, logout_user
+from flask_login import LoginManager, logout_user, current_user, login_user
 from models import User
 
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def make_shell_context():
 
 
 
-from flask_login import current_user, login_user
+
 @app.route("/")
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -46,8 +46,13 @@ def login():
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
 	forms = SignUpForm()
-	if request.method=='POST' and forms.validate_on_submit():		
-		return redirect(url_for('login'))	
+	if request.method=='POST' and forms.validate_on_submit():
+		if forms.check_user_exists() == False:
+			user = User(username = forms.username.data)
+			user.set_password(forms.password.data)
+			db.session.add(user)
+			db.session.commit()
+			return redirect(url_for('login'))	
 	else:		
 		print(forms.errors)
 
@@ -62,4 +67,4 @@ def logout():
 
 @app.route('/index')
 def hello():
-	return render_template('index.html', title = 'hello', username = 'miguel')
+	return render_template('index.html', title = 'hello', username = current_user.username)
