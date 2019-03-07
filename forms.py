@@ -1,16 +1,28 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, validators
+from wtforms import TextAreaField, StringField, PasswordField, SubmitField, SelectField, validators
 from wtforms.validators import DataRequired
 from models import User
 
+class InsertForm(FlaskForm):
+	command_type = SelectField('Type', choices = [		
+		('POST', 'POST'),
+		('PUT', 'PUT'),
+		('DELETE', 'DELETE')], 
+		render_kw ={'class': 'form-control' })
+	text = TextAreaField(u'Mailing Address', [validators.optional(), validators.length(max=2000)], 
+		render_kw ={'class': 'form-control' })
+	submit = SubmitField('Sign In', 
+		render_kw ={'class': 'form-control' })
+
 class LoginForm(FlaskForm):
+
 	username = StringField('Username', validators=[validators.Length(min=4, max=25,
 		message = 'Длина логина должна быть больше 4 и меньше 25')], 
 		render_kw ={'class': 'form-control' })
 
 	password = PasswordField('Password', validators=[validators.Length(min=4, max=25,
 		message = 'Длина пароля должна быть больше 4 и меньше 25')], 
-		render_kw ={'class': 'form-control' })    
+		render_kw ={'class': 'form-control' })
 
 	submit = SubmitField('Sign In', 
 		render_kw ={'class': 'form-control' })
@@ -53,6 +65,9 @@ class LoginForm(FlaskForm):
 
 class SignUpForm(LoginForm):
 
+	name = StringField('name', validators=[DataRequired(
+		message = 'Пожалуйста, заполните это поле')], 
+		render_kw ={'class': 'form-control' })
 
 	password2 = PasswordField('Password2', validators=[
 		DataRequired(),
