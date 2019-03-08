@@ -58,13 +58,12 @@ server {
 ```
 usr/nginx/
 ```
-и в файле `nginx.conf` добавляем
+и в файле `nginx.conf` **в раздел `http`** добавляем
 
 ```
 include /etc/nginx/sites-enabled/test.conf;
 ```
 
-в раздел `http`.
 
 Cоздать файлы `access.log` и `errors.log` в
 ```
