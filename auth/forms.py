@@ -3,17 +3,6 @@ from wtforms import TextAreaField, StringField, PasswordField, SubmitField, Sele
 from wtforms.validators import DataRequired
 from auth.models import User
 
-class InsertForm(FlaskForm):
-	command_type = SelectField('Type', choices = [		
-		('POST', 'POST'),
-		('PUT', 'PUT'),
-		('DELETE', 'DELETE')], 
-		render_kw ={'class': 'form-control' })
-	text = TextAreaField(u'Mailing Address', [validators.optional(), validators.length(max=2000)], 
-		render_kw ={'class': 'form-control' })
-	submit = SubmitField('Sign In', 
-		render_kw ={'class': 'form-control' })
-
 class LoginForm(FlaskForm):
 
 	username = StringField('Username', validators=[validators.Length(min=4, max=25,
