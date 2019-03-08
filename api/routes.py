@@ -110,7 +110,7 @@ def delete_user():
 	print(json_text)
 	for user_js in json_text:
 		print(user_js)
-		user = User.query.filter_by(id = user_js['id']).first()
+		user = User.query.filter_by(username = user_js['username']).first()
 
 		if user!=None:					
 			try:
@@ -118,10 +118,10 @@ def delete_user():
 				db.session.commit()			
 			except Exception as ex:
 				error = "user: {0} произошла ошибка удаления: {1} ".format(
-					user_js['id'], ex)
+					user_js['username'], ex)
 				return Response(error, status = 500)	
 		else:
-			error =  "user_id: {0}  - Такого пользователя нет".format(user_js['id'])
+			error =  "username: {0}  - Такого пользователя нет".format(user_js['username'])
 			return Response(error, status = 400)	
 
 	return all_user()					
