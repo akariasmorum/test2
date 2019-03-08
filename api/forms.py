@@ -10,5 +10,4 @@ class InsertForm(FlaskForm):
 		render_kw ={'class': 'form-control' })
 	text = TextAreaField(u'Mailing Address', [validators.optional(), validators.length(max=2000)], 
 		render_kw ={'class': 'form-control' })
-	submit = SubmitField('Sign In', 
-		render_kw ={'class': 'form-control' })
+	

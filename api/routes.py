@@ -6,6 +6,12 @@ from auth.models import User
 from flask_login import (LoginManager, logout_user, current_user, login_user,
 	login_required)
 import os
+from flask_wtf.csrf import CsrfProtect
+
+csrf = CsrfProtect(app)
+
+
+
 
 @app.route('/form', methods = ['POST', 'GET'])
 @login_required
@@ -54,8 +60,9 @@ def all_user():
 	return jsonify(users_js)	
 
 
-@app.route('/api/user/<int:id>')
+@app.route('/api/user/<int:id>', methods = ['GET'])
 @login_required
+@csrf.exempt
 def get_user(id):
 	if id == 0:
 		return all_user()
@@ -72,9 +79,12 @@ def get_user(id):
 		return Response("Такого пользователя нет", status=400)
 
 
-@app.route('/api/update', methods = ['POST'])
+@app.route('/api/user', methods = ['PUT'])
 @login_required
-def update_user(json_text):
+@csrf.exempt
+def update_user():
+	json_text = json.loads(request.json['data'])
+	print(json_text)
 	for user_js in json_text:		
 		user = User.query.filter_by(id = user_js['id']).first()
 		if user!=None:
@@ -92,11 +102,14 @@ def update_user(json_text):
 	return all_user()		
 
 
-@app.route('/api/delete', methods = ['POST'])
+@app.route('/api/user/', methods = ['DELETE'])
 @login_required
-def delete_user(json_text):
+@csrf.exempt
+def delete_user():
+	json_text = json.loads(request.json['data'])
+	print(json_text)
 	for user_js in json_text:
-
+		print(user_js)
 		user = User.query.filter_by(id = user_js['id']).first()
 
 		if user!=None:					
@@ -105,7 +118,7 @@ def delete_user(json_text):
 				db.session.commit()			
 			except Exception as ex:
 				error = "user: {0} произошла ошибка удаления: {1} ".format(
-					user_js, ex)
+					user_js['id'], ex)
 				return Response(error, status = 500)	
 		else:
 			error =  "user_id: {0}  - Такого пользователя нет".format(user_js['id'])
@@ -115,9 +128,12 @@ def delete_user(json_text):
 
 
 
-@app.route('/api/delete', methods = ['POST'])
+@app.route('/api/user', methods = ['POST'])
 @login_required
-def insert_user(json_text):
+@csrf.exempt
+def insert_user():
+	json_text = json.loads(request.json['data'])
+	print(json_text)
 	for user_js in json_text:
 		print(user_js)
 		try:

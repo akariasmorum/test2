@@ -18,20 +18,48 @@
 				<div class="form-group">	    			
 						{{ form.text }}
 				</div>	
-				<div class="form-group">	    			
-						{{ form.submit }}
-				</div>	
+				
         	</form>
+            <button id='send' class='submit'>
+                Отправить
+            </button>
         </div>
         <script type="text/javascript">
+            function request(method, url, headers, data, timeout, suc_function){
+                var responce = $.ajax({
+                    async: true,
+                    method:method,
+                    url:url,
+                    headers: headers,
+                    data:JSON.stringify(data),
+                    contentType: 'application/json;charset=UTF-8',
+                    timeout: timeout,
+                    success: function(msg)
+                    {
+                      suc_function(msg);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert(jqXHR.responseText);                      
+                    }
+                  });
+            }
+
+            function success(msg){
+                console.log(JSON.stringify(msg));
+            }
+
             var POST_JSON = '{{ insert_json | safe }}';
             var DELETE_JSON = '{{ delete_json | safe }}';
             var PUT_JSON = '{{ put_json | safe }}';
 
             var TYPE_TO_F_DICT={'PUT': PUT_JSON, 'POST': POST_JSON, 'DELETE': DELETE_JSON};
             window.onload = function(){
-                $('#text').append(TYPE_TO_F_DICT['POST']);
-                console.log(TYPE_TO_F_DICT['PUT']);
+                $('#text').append(TYPE_TO_F_DICT['POST']);                
+
+                $('#send').on('click', function(){
+                    request($( "#command_type option:selected" ).text(), '/api/user', null, {'data': $('#text').val() }, null, success );
+                })
             }
             $('#command_type').on('change', function(){
                 $('#text').val(TYPE_TO_F_DICT[this.value]);
