@@ -91,8 +91,9 @@ sudo service nginx restart
 ```
 /form 
 ```
+**результат выполнения на них выводится в консоль**
 
-# GET
+### GET
 get - Запрос на 
 ```
 /api/user/id 
@@ -104,7 +105,7 @@ get - Запрос на
 /api/user/0 
 ```
 
-# POST
+### POST
 
 post на
 ```
@@ -120,10 +121,33 @@ post на
 	{"username": "Monte", "name": "Monte", "password": "2nhXZ8U6"}
 ]
 ```
+### PUT
+put на
+```
+/api/user/
+```
+обновляет информацию о пользователях:
+```
+[
+	{"id": "5", "name": "Michelangelo"},
+	{"id": "6", "name": "Donatello"}
+]
+```
+обновит информацию о пользователях с id 5 и 6
 
-# DELETE
+### DELETE
 delete - запрос на 
 ```
 /api/user/
+```
+удаляет указанных пользователей:
+```
+[
+	{"username": "Jaclyn"},
+	{"username": "Neville"},
+	{"username": "Janey"},
+	{"username": "Jerrics"},
+	{"username": "Monte"}
+]
 ```
 
