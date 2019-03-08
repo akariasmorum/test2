@@ -83,5 +83,47 @@ sudo service nginx restart
 перейти на `http://localhost`
 
 
+## API
 
+для работы с базой пользователей реализовано 4 метода: GET, POST, PUT, DELETE
+для демонстрации 3 последних я оформил в форме по адресу:
+
+```
+/form 
+```
+
+# GET
+get - Запрос на 
+```
+/api/user/id 
+```
+выдаст информацию о пользователе с заданным id
+
+следующий запрос выведет информацию о всех пользователях в формате json
+```
+/api/user/0 
+```
+
+# POST
+
+post на
+```
+/api/user/
+```
+добавляет указанных пользователей в базу. например:
+```
+[
+	{"username": "Jaclyn", "name": "Jaclyn", "password": "spsNBDKg"},
+	{"username": "Neville", "name": "Neville", "password": "NehqUPvR"},
+	{"username": "Janey", "name": "Janey", "password": "8pCMsS5d"},
+	{"username": "Jerrics", "name": "Jerrics", "password": "7Lb3a5hm"},
+	{"username": "Monte", "name": "Monte", "password": "2nhXZ8U6"}
+]
+```
+
+# DELETE
+delete - запрос на 
+```
+/api/user/
+```
 
