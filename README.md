@@ -17,13 +17,14 @@
 поднимаем его
 ```sudo docker-compose up```
 
-##настройка nginx:
+## настройка nginx:
 
 создать файл `test.conf` в
 ```etc/nginx/sites-available/```
 
 и добавить в него
-```server {
+```
+server {
     listen 80;
     server_name 127.0.0.1;
  
