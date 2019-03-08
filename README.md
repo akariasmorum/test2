@@ -6,21 +6,31 @@
 ## настройка докера
 
 клонировать репозиторий:
-```git clone https://github.com/akariasmorum/test2.git```
+```
+git clone https://github.com/akariasmorum/test2.git
+```
 
 перейти в папку
-```cd test2```
+```
+cd test2
+```
 
 собираем docker
-```sudo docker-compose build```
+```
+sudo docker-compose build
+```
 
 поднимаем его
-```sudo docker-compose up```
+```
+sudo docker-compose up
+```
 
 ## настройка nginx:
 
 создать файл `test.conf` в
-```etc/nginx/sites-available/```
+```
+etc/nginx/sites-available/
+```
 
 и добавить в него
 ```
@@ -45,21 +55,31 @@ server {
 }
 ```
 переходим на уровень выше в
-```usr/nginx/```
+```
+usr/nginx/
+```
 и в файле `nginx.conf` добавляем
 
-```include /etc/nginx/sites-enabled/test.conf;```
+```
+include /etc/nginx/sites-enabled/test.conf;
+```
 
 в раздел `http`.
 
 Cоздать файлы `access.log` и `errors.log` в
-```usr/share/nginx```
+```
+usr/share/nginx
+```
 
 проверить nginx:
-```sudo nginx -t```
+```
+sudo nginx -t
+```
 
 перезагрузить nginx:
-```sudo service nginx restart```
+```
+sudo service nginx restart
+```
 
 перейти на `http://localhost`
 
