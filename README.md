@@ -156,8 +156,5 @@ delete - запрос на
 раз уж вы здесь,то вы меня спрашивали "есть ли в списке повторяющиеся элементы". я предложил циклами, вы предложили set'ом.
 так вот, я провел исследование. результаты неоднозначны. может это баг, а может и фича
 перейдите на jupiter notebook
-'''
-https://mybinder.org/v2/gh/ipython/ipython-in-depth/master?filepath=binder/Index.ipynb
-'''
-file -> open. появится новое окно -> справа upload
-выберите ipynb (2).ipynb  который лежит здесь, в корне репозитория
+
+https://github.com/akariasmorum/test2/blob/master/ipynb%20(2).ipynb
